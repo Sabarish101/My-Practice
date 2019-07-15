@@ -32,8 +32,11 @@ while selection1 == 1:
                     break
                 while selection2 == 2:
                     depositamt = int(input("Please enter amount:   "))
-                    Balance = depositamt + Balance
-                    print("Your Account Balance is Rs.", Balance, " only")
+                    if depositamt > 0:
+                        Balance = depositamt + Balance
+                        print("Your Account Balance is Rs.", Balance, " only")
+                    else:
+                        print("Invalid deposit amount")
                     break
                 while selection2 == 3:
                     withdraw = int(input("Enter amount:   "))
@@ -46,7 +49,6 @@ while selection1 == 1:
                 while selection2 == 4:
                     print("Loging out....")
                     break
-                break
             break
         else:
             print("Wrong Credentials")
