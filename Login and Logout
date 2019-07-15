@@ -1,0 +1,63 @@
+print("Welcome")
+print("""Please select (1) for registering new account
+press (2) for cancel
+""")
+selection1 = int(input("Please select one option:  "))
+while selection1 == 1:
+    Userid = input("Enter User ID  : ")
+    password = input("Enter Your Password  :")
+    Userdata = [Userid, password]
+    print("Your Account has been created")
+    print("Your account will be logout automatically")
+    print("login again.")
+    chances = 3
+    Balance = 0
+    while chances >=1:
+        login = input("Login Id:   ")
+        password1 = input("Password:   ")
+        while login in Userdata and password1 in Userdata:
+            print("Welcome")
+            print("""Please select 
+            (1) for Account Balance
+            (2) for Deposit
+            (3) for Wiithdrawl
+            (4) for logout
+            """)
+            selection2 = int(input("Select your option:   "))
+            if selection2 not in (1, 2, 3, 4):
+                print("Please select (1) or (02) or (03) or (4) only")
+            else:
+                while selection2 == 1:
+                    print("Your Account Balance is Rs.", Balance, " only")
+                    break
+                while selection2 == 2:
+                    depositamt = int(input("Please enter amount:   "))
+                    Balance = depositamt + Balance
+                    print("Your Account Balance is Rs.", Balance, " only")
+                    break
+                while selection2 == 3:
+                    withdraw = int(input("Enter amount:   "))
+                    if withdraw > Balance:
+                        print("Insufficient Funds., You have Rs. ",Balance, " only")
+                    else:
+                        Balance = Balance - withdraw
+                        print("Your Account Balance is Rs.", Balance, " only")
+                    break
+                while selection2 == 4:
+                    print("Loging out....")
+                    break
+                break
+            break
+        else:
+            print("Wrong Credentials")
+            chances -= 1
+            if chances == 1:
+                print("You have only one chance left")
+    else:
+        print("Your Account has been blocked")
+        exit(99)
+while selection1 == 2:
+    print("Eixiting...")
+    break
+else:
+    print("Select (1) or (2) only")
