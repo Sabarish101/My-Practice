@@ -3,7 +3,7 @@ print("""Please select (1) for registering new account
 press (2) for cancel
 """)
 selection1 = int(input("Please select one option:  "))
-while selection1 == 1:
+if selection1 == 1:
     Userid = input("Enter User ID  : ")
     password = input("Enter Your Password  :")
     Userdata = [Userid, password]
@@ -12,9 +12,9 @@ while selection1 == 1:
     print("login again.")
     chances = 3
     Balance = 0
+    login = input("Login Id:   ")
+    password1 = input("Password:   ")
     while chances >=1:
-        login = input("Login Id:   ")
-        password1 = input("Password:   ")
         while login in Userdata and password1 in Userdata:
             print("Welcome")
             print("""Please select 
