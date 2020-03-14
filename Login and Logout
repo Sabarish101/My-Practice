@@ -49,7 +49,7 @@ if selection1 == 1:
                 while selection2 == 4:
                     print("Loging out....")
                     break
-            break
+        break
         else:
             print("Wrong Credentials")
             chances -= 1
