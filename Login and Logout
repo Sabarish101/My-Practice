@@ -87,3 +87,5 @@ while selection1 == 2:
 else:
     print("Select (1) or (2) only")
     welcome()
+# and one more thing if i select 2 for few times and check wehter it working or not and then select 1 and try to run programme 
+# it always stuck at welcome() function and closing on second attempt. (Put "2" for few times and try to put "1" and see.)
