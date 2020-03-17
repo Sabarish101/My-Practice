@@ -1,21 +1,41 @@
-print("Welcome")
-print("""Please select (1) for registering new account
-press (2) for cancel
-""")
-selection1 = int(input("Please select one option:  "))
-if selection1 == 1:
+def Registration():
+    global Userdata
     Userid = input("Enter User ID  : ")
     password = input("Enter Your Password  :")
     Userdata = [Userid, password]
+    return
+
+def logindata():
+    global loginid  # just read about GLOBAL and used it here. dont know if its wrong or not.
+    global loginpass
+    loginid = input("Enter Your User ID  : ")
+    loginpass = input("Enter Your Password  :")
+    return
+
+
+def welcome():
+    print("Welcome")
+    print("""Please select (1) for registering new account
+    press (2) for cancel""")
+    global selection1
+    selection1 = int(input("Please select one option:  "))
+    return
+
+
+welcome()
+if selection1 == 1:
+    Registration()
     print("Your Account has been created")
     print("Your account will be logout automatically")
     print("login again.")
     chances = 3
     Balance = 0
-    login = input("Login Id:   ")
-    password1 = input("Password:   ")
+    logindata()
+    # as per my assumption here if user enters login details incorrect, its taking those wrong data for 3 times and blocking him.
+    # It needs to ask again to enter correct details. after 3 wrong entries it needs to block.
+    # it was good until i mess with "def" functions (learning def functions) how can i fix.
     while chances >=1:
-        while login in Userdata and password1 in Userdata:
+        while loginid in Userdata and loginpass in Userdata:
             print("Welcome")
             print("""Please select 
             (1) for Account Balance
@@ -49,7 +69,8 @@ if selection1 == 1:
                 while selection2 == 4:
                     print("Loging out....")
                     break
-        break
+                    # I want to put welcome message here if he logs out.
+            break
         else:
             print("Wrong Credentials")
             chances -= 1
@@ -57,9 +78,12 @@ if selection1 == 1:
                 print("You have only one chance left")
     else:
         print("Your Account has been blocked")
-        exit(99)
+        welcome()
+
+
 while selection1 == 2:
     print("Eixiting...")
-    break
+    welcome()
 else:
     print("Select (1) or (2) only")
+    welcome()
