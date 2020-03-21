@@ -74,6 +74,7 @@ if selection1 == 1:
         else:
             print("Wrong Credentials")
             chances -= 1
+            logindata()
             if chances == 1:
                 print("You have only one chance left")
     else:
