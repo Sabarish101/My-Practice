@@ -155,3 +155,5 @@ while PlayerA < 5 and PlayerB < 5:
 # Is there is any way to scroll winner from left to right or Zoom at the center like in actual videos.
 # is there is any way to block paddles to stop at the borders.They are scrolling outside the boarders which is not good.
 # Why sometimes ball moves very fast and some times slow.
+# How to make the Heading Ping Pong in the middle and add some colors.
+# Can we add graphics to it.
