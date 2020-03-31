@@ -1,0 +1,157 @@
+import turtle
+import winsound
+
+# Screen
+wn = turtle.Screen()
+wn.setup(width=900, height=600)
+wn.bgcolor("black")
+wn.title("Ping Pong")
+wn.tracer(0)
+
+# Scores
+PlayerA = 0
+PlayerB = 0
+Team1 = "Blue Team"
+Team2 = "Red Team"
+# Paddle 1
+pdd1 = turtle.Turtle()
+pdd1.shape("square")
+pdd1.shapesize(stretch_wid=5, stretch_len=0.5)
+pdd1.color("red")
+pdd1.penup()
+pdd1.speed(0)
+pdd1.goto(350, 0)
+
+# Paddle 2
+pdd2 = turtle.Turtle()
+pdd2.shape("square")
+pdd2.shapesize(stretch_len=0.5, stretch_wid=5)
+pdd2.color("blue")
+pdd2.penup()
+pdd2.speed(0)
+pdd2.goto(-350, 0)
+
+# Ball
+ball = turtle.Turtle()
+ball.shape("circle")
+ball.shapesize(stretch_wid=0.5, stretch_len=0.5)
+ball.color('white')
+ball.penup()
+ball.speed(1)
+ball.goto(0, 0)
+ball.dx = -0.5
+ball.dy = 0.5
+
+
+# Score Headings
+heading1 = turtle.Turtle()
+heading1.penup()
+heading1.hideturtle()
+heading1.speed(10)
+heading1.color("blue")
+heading1.goto(-250, 260)
+heading1.write(f"{Team1} : 0", align="center", font=("Arial", 18, 'normal'))
+
+
+heading2 = turtle.Turtle()
+heading2.penup()
+heading2.hideturtle()
+heading2.speed(10)
+heading2.color("red")
+heading2.goto(250, 260)
+heading2.write(f"{Team2} : 0", align="center", font=("Arial", 18, 'normal'))
+
+
+# Winning Heading
+winner = turtle.Turtle()
+winner.color("medium violet red")
+winner.penup()
+winner.speed(1)
+winner.towards(-500, 500)
+winner.hideturtle()
+
+
+def Winner():
+    if PlayerA == 5:
+        winner.write(f'{Team1} Won the match', align='Center', font=("Arial", 24, 'normal'))
+    if PlayerB == 5:
+        winner.write(f'{Team2} won the match', align='center', font=("Arial", 24, 'normal'))
+
+# Movements
+def pdd1_up():
+    y = pdd1.ycor()
+    y += 23
+    pdd1.sety(y)
+
+
+def pdd1_down():
+    y = pdd1.ycor()
+    y += -23
+    pdd1.sety(y)
+
+
+def pdd2_up():
+    y = pdd2.ycor()
+    y += 23
+    pdd2.sety(y)
+
+
+def pdd2_down():
+    y = pdd2.ycor()
+    y += -23
+    pdd2.sety(y)
+
+
+wn.listen()
+wn.onkeypress(pdd1_up, 'Up')
+wn.onkeypress(pdd1_down, 'Down')
+wn.onkeypress(pdd2_up, 'w')
+wn.onkeypress(pdd2_down, 's')
+
+
+while PlayerA < 5 and PlayerB < 5:
+    wn.update()
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    if ball.xcor() > 450:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        PlayerA += 1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        heading1.clear()
+        heading1.write(f'{Team1} : {PlayerA}', align="center", font=("Arial", 18, 'normal'))
+
+    if ball.xcor() < -450:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        PlayerB += 1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        heading2.clear()
+        heading2.write(f'{Team2} : {PlayerB}', align="center", font=("Arial", 18, 'normal'))
+
+    if (340 < ball.xcor() < 350) and (pdd1.ycor() - 50 < ball.ycor() < pdd1.ycor() + 50):
+        ball.setx(340)
+        ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+
+    if (-350 < ball.xcor() < -340) and (pdd2.ycor() -50 < ball.ycor() < pdd2.ycor() + 50):
+        ball.setx(-340)
+        ball.dx *= -1
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+
+    Winner()
+
+
+# need some help on displaying Winner function for at least 5 seconds and then it needs to close.
+# Is there is any way to scroll winner from left to right or Zoom at the center like in actual videos.
+# is there is any way to block paddles to stop at the borders.They are scrolling outside the boarders which is not good.
+# Why sometimes ball moves very fast and some times slow.
