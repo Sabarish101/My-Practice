@@ -157,3 +157,4 @@ while PlayerA < 5 and PlayerB < 5:
 # Why sometimes ball moves very fast and some times slow.
 # How to make the Heading Ping Pong in the middle and add some colors.
 # Can we add graphics to it.
+# what are the uses of penup and pendown.
