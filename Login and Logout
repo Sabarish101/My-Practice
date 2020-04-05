@@ -1,92 +1,111 @@
-def Registration():
-    global Userdata
-    Userid = input("Enter User ID  : ")
-    password = input("Enter Your Password  :")
-    Userdata = [Userid, password]
-    return
-
-def logindata():
-    global loginid  # just read about GLOBAL and used it here. dont know if its wrong or not.
-    global loginpass
-    loginid = input("Enter Your User ID  : ")
-    loginpass = input("Enter Your Password  :")
-    return
+chances = 4
+balance = 0
 
 
-def welcome():
-    print("Welcome")
-    print("""Please select (1) for registering new account
-    press (2) for cancel""")
-    global selection1
-    selection1 = int(input("Please select one option:  "))
-    return
-
-
-welcome()
-if selection1 == 1:
-    Registration()
-    print("Your Account has been created")
-    print("Your account will be logout automatically")
-    print("login again.")
-    chances = 3
-    Balance = 0
-    logindata()
-    # as per my assumption here if user enters login details incorrect, its taking those wrong data for 3 times and blocking him.
-    # It needs to ask again to enter correct details. after 3 wrong entries it needs to block.
-    # it was good until i mess with "def" functions (learning def functions) how can i fix.
-    while chances >=1:
-        while loginid in Userdata and loginpass in Userdata:
-            print("Welcome")
-            print("""Please select 
-            (1) for Account Balance
-            (2) for Deposit
-            (3) for Wiithdrawl
-            (4) for logout
-            """)
-            selection2 = int(input("Select your option:   "))
-            if selection2 not in (1, 2, 3, 4):
-                print("Please select (1) or (02) or (03) or (4) only")
-            else:
-                while selection2 == 1:
-                    print("Your Account Balance is Rs.", Balance, " only")
-                    break
-                while selection2 == 2:
-                    depositamt = int(input("Please enter amount:   "))
-                    if depositamt > 0:
-                        Balance = depositamt + Balance
-                        print("Your Account Balance is Rs.", Balance, " only")
-                    else:
-                        print("Invalid deposit amount")
-                    break
-                while selection2 == 3:
-                    withdraw = int(input("Enter amount:   "))
-                    if withdraw > Balance:
-                        print("Insufficient Funds., You have Rs. ",Balance, " only")
-                    else:
-                        Balance = Balance - withdraw
-                        print("Your Account Balance is Rs.", Balance, " only")
-                    break
-                while selection2 == 4:
-                    print("Loging out....")
-                    break
-                    # I want to put welcome message here if he logs out.
-            break
-        else:
-            print("Wrong Credentials")
-            chances -= 1
-            logindata()
-            if chances == 1:
-                print("You have only one chance left")
+def welcomemsg():
+    print('''Welcome to SBI portal.
+    Select (1) for New Registrtion.
+    Select (2) for Login.
+    ''')
+    global selection
+    selection = int(input('Select: '))
+    if selection == 1:
+        registration()
+    elif selection == 2:
+        Login()
     else:
-        print("Your Account has been blocked")
-        welcome()
+        print("enter 1 or 2")
+        welcomemsg()
 
 
-while selection1 == 2:
-    print("Eixiting...")
-    welcome()
-else:
-    print("Select (1) or (2) only")
-    welcome()
-# and one more thing if i select 2 for few times and check wehter it working or not and then select 1 and try to run programme 
-# it always stuck at welcome() function and closing on second attempt. (Put "2" for few times and try to put "1" and see.)
+def registration():
+    global Userdata
+    global Username
+    Username = input("Enter Your Name: ")
+    Userid = input("Enter New UserID: ")
+    Password = input("Enter your Passqord: ")
+    Userdata = [Userid, Password]
+    welcomemsg()
+
+
+def Login():
+    global Logindata
+    LoginId = input("Enter your userid: ")
+    passcode = input("Enter yourr Password: ")
+    Logindata = [LoginId, passcode]
+    banking()
+
+
+def banking():
+    global chances 
+    while chances >= 1:
+        while Logindata == Userdata:
+            print('***************************** State Bank of India *****************************'.center(100))
+            print(f'Welcome, {Username}'.center(100))
+            print('''(1) Balance Enquiry
+            (2) Deposit
+            (3) Withdraw
+            (4) Logout''')
+            transactions = int(input("Selection: "))
+            if transactions == 1:
+                print(f'Your Account Balance is Rs. {balance} only')
+            elif transactions == 2:
+                deposit()
+            elif transactions == 3:
+                withdraw()
+            elif transactions == 4:
+                welcomemsg()
+            else:
+                print("Enter 1 or 2 or 3 or 4 only")
+                Login()
+        else:
+            chances -= 1
+            Login()
+            if chances == 1:
+                print('You have once chance left')
+    else:
+        print(" Your Account has been blocked")
+        welcomemsg()
+
+
+def antrtrans():
+    antran = input('Do you want to make an other transaction? (Y/N):  '.upper())
+    if antran in ['YES', 'Y']:
+        print('''(1) Balance Enquiry
+            (2) Deposit
+            (3) Withdraw
+            (4) Logout
+            ''')
+    elif antran in ['NO', 'N']:
+        print('Thank you for using SBI portal')
+        welcomemsg()
+    else:
+        print("Can take Yes/Y or No/N.")
+        antrtrans()
+    
+
+def deposit():
+    global balance
+    damt = int(input("Enter Deposit amount: "))
+    if (type(damt) != int) or (damt < 0) :
+        print("We dont take artificial money")
+        deposit()
+    else:
+        balance = damt + balance
+        print(f'Your Balance is {balance}')
+        antrtrans()
+
+
+def withdraw():
+    global balance
+    wamt = int(input('Enter withdraw amount: '))
+    if type(wamt) != int:
+        print("You cant use fake money. Try Real money")
+    if wamt > balance:
+        print(f'In sufficient Balance, You can withdraw {balance} only.')
+    else:
+        balance = balance - wamt
+    return f'Your Balance is {balance}'
+
+
+welcomemsg()
